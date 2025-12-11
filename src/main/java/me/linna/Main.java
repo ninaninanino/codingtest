@@ -9,13 +9,13 @@ public class Main {
             }
         }
         */
-        String my_String = "cvsgiorszzzmrpaqpe";
+        String my_string = "cvsgiorszzzmrpaqpe";
         int[] index_list = {16, 6, 5, 3, 12, 14, 11, 11, 17, 12, 7};
         String answer = "";
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(index_list.length);
 
         for (int i : index_list) {
-            sb.append(my_String.charAt(i));
+            sb.append(my_string.charAt(i));
         }
         answer = sb.toString();
         System.out.println(answer);
