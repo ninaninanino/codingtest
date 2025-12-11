@@ -1,7 +1,6 @@
 package me.linna;
 
-import com.sun.jdi.IntegerValue;
-
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -12,43 +11,54 @@ public class Main {
         int c = sc.nextInt();
         int d = sc.nextInt();
 
-        //case1. 숫자 넷이 모두 같음
-        if (a==b && b==c && c==d) {
-            System.out.println(1111*a);
+        /**
+         * gpt로 얻은 답: a,b,c,d 를 정렬하여 풀이함
+         * 이때 모두 같다면 x[0] == x[3]일 것임.
+         */
+        int[] x = {a,b,c,d};
+        Arrays.sort(x);
+
+        int answer = 0 ;
+
+        //case. 숫자 넷이 모두 같음
+        if (x[0] == x[3]) {
+            answer = 1111*x[0];
         }
-        //case2. 숫자 넷이 모두 다름
-        else if (a!=b && a!=c && a!=d && b!=c && b!=d && c!=d) {
-            System.out.println(Math.min(Math.min(a,b), Math.min(c,d) ));
+        //case. 숫자 세개가 같음
+        else if (x[1] == x[3]) {
+            int p = x[3]*10;
+            int q = x[0];
+            answer = (int) Math.pow(p+q,2);
+        } else if (x[0]==x[2]) {
+            int p = x[0]*10;
+            int q = x[3];
+            answer = (int) Math.pow(p+q,2);
         }
-        //case5. 숫자 세개가 같음
-        else if (a==b && b==c && c!=d) {// abc d
-            System.out.println((int)Math.pow(10*a+d,2));
-        }else if (a!=b && b==c && c==d) {// a bcd
-            System.out.println((int)Math.pow(10*b+a,2));
-        }else if (a==c && b!=c && c==d) { // b acd
-            System.out.println((int)Math.pow(10*a+b,2));
-        }else if (a==b && b!=c && b==d) { // c abd
-            System.out.println((int)Math.pow(10*a+c,2));
+        //case. 숫자 둘씩 같음
+        else if (x[0]==x[1] && x[2]==x[3]) {
+            int p = x[0];
+            int q = x[2];
+            answer = (p+q) * Math.abs(p-q);
         }
-        //case4. 숫자 둘씩 같음
-        else if ((a==b && c==d && a!=c)||(a!=c && a==d && c==b)) {
-            System.out.println((a+c)*Math.abs(a-c));
-        } else if ((a==c && b==d && a!=b) || (a==d && b==c && a!=b) ) {
-            System.out.println((a+b)*Math.abs(a-b));
+        //case. 숫자 둘만 같음
+        else if (x[0]==x[1]) {
+            int q = x[2];
+            int r = x[3];
+            answer = q*r;
+        } else if (x[1]==x[2]) {
+            int q = x[0];
+            int r = x[3];
+            answer = q*r;
+        } else if (x[2]==x[3]) {
+            int q = x[0];
+            int r = x[1];
+            answer = q*r;
         }
-        //case3. 숫자 둘만 같음
-        else if (a==b && a!=c && a!=d && b!=c && b!=d && c!=d) { //ab
-            System.out.println(c*d);
-        } else if (a!=b && a==c && a!=d && b!=c && b!=d && c!=d) {//ac
-            System.out.println(b*d);
-        } else if (a!=b && a!=c && a==d && b!=c && b!=d && c!=d){ //ad
-            System.out.println(b*c);
-        } else if (a!=b && a!=c && a!=d && b==c && b!=d && c!=d) {//bc
-            System.out.println(a*d);
-        } else if (a!=b && a!=c && a!=d && b!=c && b==d && c!=d) {//bd
-            System.out.println(a * c);
-        } else if (a!=b && a!=c && a!=d && b!=c && b!=d && c==d) {//cd
-            System.out.println(a * b);
+        //case. 숫자 넷이 모두 다름
+        else {
+            answer = x[0];
         }
+
+        System.out.println(answer);
     }
 }
